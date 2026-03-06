@@ -70,7 +70,7 @@ Terraform enforces correct destroy ordering via dependencies:
 
 - [Terraform](https://developer.hashicorp.com/terraform/install) >= 0.13
 - [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli) installed
-- Azure subscription with Contributor permissions
+- Azure subscription with [required permissions](#azure-permissions) (see below)
 - Netskope API key with **Infrastructure Management** scope
 - RSA SSH public key (Azure does not support ed25519)
 - [Netskope Publisher marketplace image](https://azuremarketplace.microsoft.com/) terms accepted
@@ -195,6 +195,90 @@ Azure-NPA-Ref-Architecture-Terraform/
 | `availability_zones` | `["1", "2", "3"]` | AZs to distribute across |
 | `env_prefix` | `PRD` | Environment prefix for naming |
 | `vm_prefix` | `NPA` | VM prefix for naming |
+
+## Azure Permissions
+
+The simplest option is to assign the built-in **Contributor** role at the subscription scope:
+
+```bash
+az role assignment create \
+  --assignee "<service-principal-or-user-object-id>" \
+  --role "Contributor" \
+  --scope "/subscriptions/<your-subscription-id>"
+```
+
+For production deployments, use a custom role with least-privilege permissions instead:
+
+```bash
+az role definition create --role-definition '{
+  "Name": "NPA Publisher Deployer",
+  "Description": "Least-privilege role for deploying NPA Publisher infrastructure via Terraform",
+  "Actions": [
+    "Microsoft.Resources/subscriptions/resourceGroups/read",
+    "Microsoft.Resources/subscriptions/resourceGroups/write",
+    "Microsoft.Resources/subscriptions/resourceGroups/delete",
+
+    "Microsoft.Network/virtualNetworks/read",
+    "Microsoft.Network/virtualNetworks/write",
+    "Microsoft.Network/virtualNetworks/delete",
+    "Microsoft.Network/virtualNetworks/subnets/read",
+    "Microsoft.Network/virtualNetworks/subnets/write",
+    "Microsoft.Network/virtualNetworks/subnets/delete",
+    "Microsoft.Network/virtualNetworks/subnets/join/action",
+    "Microsoft.Network/networkSecurityGroups/read",
+    "Microsoft.Network/networkSecurityGroups/write",
+    "Microsoft.Network/networkSecurityGroups/delete",
+    "Microsoft.Network/networkSecurityGroups/join/action",
+    "Microsoft.Network/networkInterfaces/read",
+    "Microsoft.Network/networkInterfaces/write",
+    "Microsoft.Network/networkInterfaces/delete",
+    "Microsoft.Network/networkInterfaces/join/action",
+    "Microsoft.Network/publicIPAddresses/read",
+    "Microsoft.Network/publicIPAddresses/write",
+    "Microsoft.Network/publicIPAddresses/delete",
+    "Microsoft.Network/publicIPAddresses/join/action",
+    "Microsoft.Network/natGateways/read",
+    "Microsoft.Network/natGateways/write",
+    "Microsoft.Network/natGateways/delete",
+    "Microsoft.Network/natGateways/join/action",
+
+    "Microsoft.KeyVault/vaults/read",
+    "Microsoft.KeyVault/vaults/write",
+    "Microsoft.KeyVault/vaults/delete",
+    "Microsoft.KeyVault/vaults/accessPolicies/write",
+    "Microsoft.KeyVault/vaults/secrets/read",
+    "Microsoft.KeyVault/vaults/secrets/write",
+    "Microsoft.KeyVault/vaults/secrets/delete",
+
+    "Microsoft.Storage/storageAccounts/read",
+    "Microsoft.Storage/storageAccounts/write",
+    "Microsoft.Storage/storageAccounts/delete",
+    "Microsoft.Storage/storageAccounts/listKeys/action",
+
+    "Microsoft.Compute/virtualMachines/read",
+    "Microsoft.Compute/virtualMachines/write",
+    "Microsoft.Compute/virtualMachines/delete",
+    "Microsoft.Compute/disks/read",
+    "Microsoft.Compute/disks/write",
+    "Microsoft.Compute/disks/delete",
+
+    "Microsoft.ManagedIdentity/userAssignedIdentities/assign/action",
+    "Microsoft.Authorization/roleAssignments/read"
+  ],
+  "AssignableScopes": [
+    "/subscriptions/<your-subscription-id>"
+  ]
+}'
+```
+
+Then assign the role to the Terraform service principal or user:
+
+```bash
+az role assignment create \
+  --assignee "<service-principal-or-user-object-id>" \
+  --role "NPA Publisher Deployer" \
+  --scope "/subscriptions/<your-subscription-id>"
+```
 
 ## Limitations
 
