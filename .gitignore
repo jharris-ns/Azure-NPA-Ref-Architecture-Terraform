@@ -1,16 +1,67 @@
-# Exclude all .tfvars files, which may contain sentitive data, such as
-# password, private keys, and other secrets. These should not be part of version 
-# control as they are data points which are potentially sensitive and subject 
-# to change depending on the environment.
-#
-*.DS_Store
-.env
-*.tfvars
-*.tfplan
-*.tfstate
-*.tfstate.backup
+# ==============================================================================
+# Terraform
+# ==============================================================================
+
 .terraform/
 .terraform.lock.hcl
+*.tfstate
+*.tfstate.*
+*.tfstate.backup
 .terraform.tfstate.lock.info
-terraform.tfstate
-terraform.tfstate.backup.idea/
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+*.tfplan
+*.tfplan.json
+
+# ==============================================================================
+# Sensitive Variable Files
+# ==============================================================================
+
+.env
+terraform.tfvars
+terraform.tfvars.json
+*.auto.tfvars
+*.auto.tfvars.json
+
+# Keep example files
+!terraform.tfvars.example
+
+# ==============================================================================
+# IDE and Editor
+# ==============================================================================
+
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.*.sw?
+
+# ==============================================================================
+# OS Generated
+# ==============================================================================
+
+.DS_Store
+Thumbs.db
+
+# ==============================================================================
+# Tools
+# ==============================================================================
+
+.tflint.d/
+.pre-commit-cache/
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# ==============================================================================
+# Project Specific
+# ==============================================================================
+
+/CLAUDE.md
+/.claude/

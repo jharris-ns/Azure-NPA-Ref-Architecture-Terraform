@@ -1,0 +1,101 @@
+# ==============================================================================
+# Pre-commit Configuration
+# ==============================================================================
+# Pre-commit hooks run automatically before each git commit to ensure code
+# quality and catch issues early.
+#
+# Installation:
+#   pip install pre-commit
+#   pre-commit install          # Install hooks in your repo
+#   pre-commit run --all-files  # Run manually on all files
+#
+# Hooks run in order. If any hook fails, the commit is aborted.
+# Fix issues and try again, or use `git commit --no-verify` to skip (not recommended).
+# ==============================================================================
+
+repos:
+  # ----------------------------------------------------------------------------
+  # Terraform Formatting, Validation, and Documentation
+  # ----------------------------------------------------------------------------
+  - repo: https://github.com/antonbabenko/pre-commit-terraform
+    rev: v1.88.0
+    hooks:
+      # Format all Terraform files
+      - id: terraform_fmt
+        name: Terraform Format
+        description: Rewrites Terraform files to canonical format
+
+      # Validate Terraform syntax
+      - id: terraform_validate
+        name: Terraform Validate
+        description: Validates Terraform configuration files
+
+      # Run TFLint
+      - id: terraform_tflint
+        name: TFLint
+        description: Lints Terraform files for errors and best practices
+        args:
+          - --args=--config=__GIT_WORKING_DIR__/.tflint.hcl
+
+      # Run Checkov security scanner
+      - id: terraform_checkov
+        name: Checkov Security Scan
+        description: Scans for security and compliance misconfigurations
+        args:
+          - --args=--quiet
+          - --args=--framework=terraform
+
+  # ----------------------------------------------------------------------------
+  # General File Checks
+  # ----------------------------------------------------------------------------
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      # Prevent large files from being committed
+      - id: check-added-large-files
+        args: ['--maxkb=1000']
+
+      # Check for files that would conflict on case-insensitive filesystems
+      - id: check-case-conflict
+
+      # Check for merge conflict markers
+      - id: check-merge-conflict
+
+      # Ensure files end with a newline
+      - id: end-of-file-fixer
+
+      # Remove trailing whitespace
+      - id: trailing-whitespace
+
+      # Check YAML syntax
+      - id: check-yaml
+        args: ['--unsafe']
+
+      # Check JSON syntax
+      - id: check-json
+
+      # Detect private keys
+      - id: detect-private-key
+
+  # ----------------------------------------------------------------------------
+  # Secrets Detection
+  # ----------------------------------------------------------------------------
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.18.2
+    hooks:
+      - id: gitleaks
+        name: Detect Secrets
+        description: Scans for hardcoded secrets and credentials
+
+# ==============================================================================
+# Configuration
+# ==============================================================================
+exclude: |
+  (?x)^(
+    \.terraform/.*|
+    \.terraform\.lock\.hcl
+  )$
+
+ci:
+  autofix_prs: false
+  autoupdate_schedule: monthly
