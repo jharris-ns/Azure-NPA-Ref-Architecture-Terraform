@@ -23,7 +23,7 @@ override.tf.json
 # Sensitive Variable Files
 # ==============================================================================
 
-.env
+terraform/.env
 terraform.tfvars
 terraform.tfvars.json
 *.auto.tfvars
