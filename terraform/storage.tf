@@ -1,4 +1,9 @@
-resource "random_id" "randomId" {
+moved {
+  from = random_id.randomId
+  to   = random_id.storage_id
+}
+
+resource "random_id" "storage_id" {
   keepers = {
     # Generate a new ID only when a new resource group is defined
     resource_group = azurerm_resource_group.rg.name
@@ -13,7 +18,7 @@ Serial console by design cannot work with storage account firewalls enabled on t
 */
 
 resource "azurerm_storage_account" "stg" {
-  name                     = lower(format("%s%s%s", var.env_prefix, var.vm_prefix, random_id.randomId.hex))
+  name                     = lower(format("%s%s%s", var.env_prefix, var.vm_prefix, random_id.storage_id.hex))
   resource_group_name      = azurerm_resource_group.rg.name
   location                 = var.location
   account_replication_type = "LRS"

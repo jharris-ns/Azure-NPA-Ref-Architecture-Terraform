@@ -1,5 +1,5 @@
 locals {
-  commonTags = {
+  common_tags = {
     environment = var.env_prefix
   }
 
