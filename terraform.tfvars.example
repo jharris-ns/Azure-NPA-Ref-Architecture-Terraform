@@ -1,0 +1,13 @@
+location            = "uksouth"
+vnet_address_space  = "10.0.0.0/16"
+snet_address_prefix = "10.0.1.0/24"
+env_prefix          = "PRD"
+vm_prefix           = "NPA"
+vm_size             = "Standard_B2ms"
+admin_username      = ""
+admin_ssh_key       = ""
+img_sku             = "npa_publisher"
+img_version         = "latest"
+publisher_name      = ""
+gateway_count       = 2
+availability_zones  = ["1", "2", "3"]
