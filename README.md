@@ -30,41 +30,7 @@ This project includes comprehensive documentation for deployment, operations, an
 
 ## Architecture
 
-```
-                                        ┌──────────────────────────┐
-                                        │  Terraform Operator      │
-                                        │  terraform plan / apply  │
-                                        └─────┬──────────┬─────────┘
-                                              │          │
-                                              ▼          ▼
-                                  ┌───────────────┐  ┌──────────────┐
-                                  │ Netskope API  │  │  Azure API   │
-                                  │ Create pubs   │  │  Create infra│
-                                  │ Gen tokens    │  │              │
-                                  └───────────────┘  └──────┬───────┘
-                                                            │
-                                                            ▼
-                                          ┌──────────────────────────────┐
-                                          │  VNet (10.0.0.0/16)         │
-                                          │                              │
-                                          │  ┌────────────────────────┐  │
-                                          │  │ Private Subnet         │  │
-                                          │  │ (spans all AZs)        │  │
-                                          │  │                        │  │
-                                          │  │  ┌──────────────────┐  │  │
-                                          │  │  │ Publisher 1 (AZ1)│──┼──┼──▶ Netskope NewEdge
-                                          │  │  └──────────────────┘  │  │
-                                          │  │  ┌──────────────────┐  │  │
-                                          │  │  │ Publisher 2 (AZ2)│──┼──┼──▶ Netskope NewEdge
-                                          │  │  └──────────────────┘  │  │
-                                          │  └───────────┬────────────┘  │
-                                          │              │               │
-                                          │              ▼               │
-                                          │  ┌────────────────────────┐  │
-                                          │  │ NAT Gateway + Public IP│  │
-                                          │  └────────────────────────┘  │
-                                          └──────────────────────────────┘
-```
+![NPA Publisher Azure Architecture](images/arch.png)
 
 ## How It Works
 
@@ -165,7 +131,7 @@ Azure-NPA-Ref-Architecture-Terraform/
 │   └── TROUBLESHOOTING.md
 │
 ├── images/                              # Architecture diagrams and screenshots
-│   ├── npa-azure-e.png
+│   ├── arch.png
 │   └── npa-token.png
 │
 ├── terraform/                           # All Terraform code
