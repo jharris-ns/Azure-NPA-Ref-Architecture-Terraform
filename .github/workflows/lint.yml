@@ -19,6 +19,9 @@ jobs:
   lint:
     name: Terraform Lint
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: terraform
 
     steps:
       - name: Checkout
@@ -40,7 +43,7 @@ jobs:
         uses: terraform-linters/setup-tflint@v4
 
       - name: Init TFLint
-        run: tflint --init --config .tflint.hcl
+        run: tflint --init --config ../.tflint.hcl
 
       - name: Run TFLint
-        run: tflint --config .tflint.hcl
+        run: tflint --config ../.tflint.hcl

@@ -93,7 +93,9 @@ repos:
 exclude: |
   (?x)^(
     \.terraform/.*|
-    \.terraform\.lock\.hcl
+    \.terraform\.lock\.hcl|
+    terraform/\.terraform/.*|
+    terraform/\.terraform\.lock\.hcl
   )$
 
 ci:

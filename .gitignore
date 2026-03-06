@@ -3,7 +3,9 @@
 # ==============================================================================
 
 .terraform/
+**/.terraform/
 .terraform.lock.hcl
+**/.terraform.lock.hcl
 *.tfstate
 *.tfstate.*
 *.tfstate.backup
@@ -63,5 +65,4 @@ venv/
 # Project Specific
 # ==============================================================================
 
-/CLAUDE.md
 /.claude/
