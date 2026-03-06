@@ -3,7 +3,7 @@ resource "azurerm_virtual_network" "vnet" {
   location            = var.location
   resource_group_name = azurerm_resource_group.rg.name
   address_space       = [var.vnet_address_space]
-  tags                = local.commonTags
+  tags                = local.common_tags
 }
 
 resource "azurerm_subnet" "snet" {
@@ -19,7 +19,7 @@ resource "azurerm_public_ip" "nat_pip" {
   resource_group_name = azurerm_resource_group.rg.name
   allocation_method   = "Static"
   sku                 = "Standard"
-  tags                = local.commonTags
+  tags                = local.common_tags
 }
 
 resource "azurerm_nat_gateway" "nat" {
@@ -27,7 +27,7 @@ resource "azurerm_nat_gateway" "nat" {
   location            = var.location
   resource_group_name = azurerm_resource_group.rg.name
   sku_name            = "Standard"
-  tags                = local.commonTags
+  tags                = local.common_tags
 }
 
 resource "azurerm_nat_gateway_public_ip_association" "nat_pip_assoc" {
