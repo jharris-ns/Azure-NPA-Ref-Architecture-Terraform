@@ -30,7 +30,7 @@ This project includes comprehensive documentation for deployment, operations, an
 
 ## Architecture
 
-![NPA Publisher Azure Architecture](images/arch.png.old)
+![NPA Publisher Azure Architecture](images/arch.png)
 
 ## How It Works
 
