@@ -30,10 +30,6 @@ This project includes comprehensive documentation for deployment, operations, an
 
 ## Architecture
 
-![NPA Publisher Azure Architecture](images/npa-azure-e.png)
-
-*Fig 1. Netskope Publisher deployment on Azure*
-
 ```
                                         ┌──────────────────────────┐
                                         │  Terraform Operator      │
@@ -174,7 +170,8 @@ Azure-NPA-Ref-Architecture-Terraform/
 │
 ├── terraform/                           # All Terraform code
 │   ├── variables.tf                     # Input variables
-│   ├── output.tf                        # Output values (IPs, names, zones)
+│   ├── main.tf                          # Main entrypoint
+│   ├── outputs.tf                       # Output values (IPs, names, zones)
 │   ├── providers.tf                     # AzureRM and Netskope provider configuration
 │   ├── version.tf                       # Terraform and provider version constraints
 │   ├── data.tf                          # Data sources (client config)
@@ -232,21 +229,6 @@ Azure-NPA-Ref-Architecture-Terraform/
 | `availability_zones` | `["1", "2", "3"]` | AZs to distribute across |
 | `env_prefix` | `PRD` | Environment prefix for naming |
 | `vm_prefix` | `NPA` | VM prefix for naming |
-
-## Cost Estimation
-
-Approximate monthly costs for uksouth region (2 publishers):
-
-| Resource | Monthly Cost |
-|---|---|
-| Standard_B2ms x2 (24/7) | ~$120 |
-| NAT Gateway | ~$32 + data transfer |
-| Premium SSD 32GB x2 | ~$10 |
-| Key Vault | ~$1 |
-| Storage Account (boot diag) | ~$1 |
-| **Total** | **~$164/month** |
-
-*Costs vary by region, VM size, and data transfer volume.*
 
 ## Limitations
 
