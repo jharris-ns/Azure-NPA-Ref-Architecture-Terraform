@@ -131,7 +131,7 @@ locals {
 
 With `publisher_name = "my-pub"` and `gateway_count = 3`, this generates:
 
-```hcl
+```
 {
   "1" = { index = 0, name = "my-pub",   zone = "1" }
   "2" = { index = 1, name = "my-pub-2", zone = "2" }
@@ -418,7 +418,7 @@ From `version.tf`:
 
 ```hcl
 terraform {
-  required_version = ">= 0.13.0"
+  required_version = ">= 1.0.0"
   required_providers {
     azurerm  = "~> 3.11.0"
     null     = "~> 3.1.1"
@@ -436,7 +436,7 @@ terraform {
 
 | Constraint | Meaning |
 |---|---|
-| `>= 0.13.0` | Version 0.13.0 or later |
+| `>= 1.0.0` | Version 1.0.0 or later |
 | `~> 3.11.0` | Version 3.11.x (any patch, not 3.12.0) |
 | `= 0.2.1` | Exactly version 0.2.1 |
 

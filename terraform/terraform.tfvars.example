@@ -1,4 +1,13 @@
-location            = "uksouth"
+# Example tfvars for East US deployment
+#
+# Verify the number of availability zones for your target region before deploying:
+#   az vm list-skus --location eastus --resource-type virtualMachines \
+#     --query "[?name=='Standard_B2ms'].locationInfo[0].zones" -o table
+#
+# If the region has fewer zones than listed below, reduce the availability_zones
+# list to avoid deployment failures. For example, a region with 2 zones: ["1", "2"]
+
+location            = "eastus"
 vnet_address_space  = "10.0.0.0/16"
 snet_address_prefix = "10.0.1.0/24"
 env_prefix          = "PRD"

@@ -16,7 +16,7 @@ Get your Netskope Private Access Publishers deployed on Azure with multi-AZ redu
 
 Before you begin, ensure you have:
 
-- [ ] **Terraform** >= 0.13 installed ([install guide](https://developer.hashicorp.com/terraform/install))
+- [ ] **Terraform** >= 1.0 installed ([install guide](https://developer.hashicorp.com/terraform/install))
 - [ ] **Azure CLI** installed ([install guide](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli))
 - [ ] **Azure subscription** with sufficient permissions to create VMs, VNets, Key Vaults, and NAT Gateways
 - [ ] **Netskope API v2 Token** with Infrastructure Management scope (see below)
@@ -40,7 +40,7 @@ Before you begin, ensure you have:
 ```bash
 # Check Terraform version
 terraform version
-# Should show >= 0.13
+# Should show >= 1.0
 
 # Check Azure CLI and login
 az account show

@@ -1,6 +1,6 @@
 terraform {
-  #All the available versions for terraform are listed here; https://releases.hashicorp.com/terraform/. 
-  required_version = ">= 0.13.0"
+  #All the available versions for terraform are listed here; https://releases.hashicorp.com/terraform/.
+  required_version = ">= 1.0.0"
   required_providers {
     # version 2.0 of the AzureRM Provider requires Terraform 0.12.x and later.
     # Recommended to pin to the specific version of the Azure Provider 
