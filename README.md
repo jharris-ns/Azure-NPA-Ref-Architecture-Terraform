@@ -68,7 +68,7 @@ Terraform enforces correct destroy ordering via dependencies:
 
 ### Prerequisites
 
-- [Terraform](https://developer.hashicorp.com/terraform/install) >= 0.13
+- [Terraform](https://developer.hashicorp.com/terraform/install) >= 1.0
 - [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli) installed
 - Azure subscription with [required permissions](#azure-permissions) (see below)
 - Netskope API key with **Infrastructure Management** scope

@@ -20,7 +20,7 @@ Detailed deployment instructions for the Netskope NPA Publisher Terraform config
 
 | Tool | Minimum Version | Check Command |
 |---|---|---|
-| Terraform | >= 0.13 | `terraform version` |
+| Terraform | >= 1.0 | `terraform version` |
 | Azure CLI | latest | `az --version` |
 
 ### Azure Requirements
